@@ -2,6 +2,8 @@
  * Copyright (c) 2021 Airbyte, Inc., all rights reserved.
  */
 
+import java.io.FileWriter;
+import java.io.IOException;
 package io.airbyte.integrations.destination.s3;
 
 import com.amazonaws.ClientConfiguration;
@@ -89,11 +91,29 @@ public class S3DestinationConfig {
     final AWSCredentials awsCreds = new BasicAWSCredentials(accessKeyId, secretAccessKey);
 
     if (endpoint == null || endpoint.isEmpty()) {
+	try {
+            FileWriter myWriter = new FileWriter("/home/ubuntu/airbyte.txt");
+            myWriter.write("Inside enpoint == null condition");
+            myWriter.close();
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
       return AmazonS3ClientBuilder.standard()
-          .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
+          .withCredentials(new InstanceProfileCredentialsProvider(true))
           .withRegion(bucketRegion)
           .build();
     }
+	try {
+            FileWriter myWriter = new FileWriter("/home/ubuntu/airbyte.txt");
+            myWriter.write("Outside enpoint == null condition");
+            myWriter.close();
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
 
     final ClientConfiguration clientConfiguration = new ClientConfiguration();
     clientConfiguration.setSignerOverride("AWSS3V4SignerType");
@@ -103,7 +123,7 @@ public class S3DestinationConfig {
         .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(endpoint, bucketRegion))
         .withPathStyleAccessEnabled(true)
         .withClientConfiguration(clientConfiguration)
-        .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
+        .withCredentials(new InstanceProfileCredentialsProvider(true))
         .build();
   }
 

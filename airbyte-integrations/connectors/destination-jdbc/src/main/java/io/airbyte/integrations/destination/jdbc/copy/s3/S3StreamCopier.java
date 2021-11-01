@@ -4,6 +4,8 @@
 
 package io.airbyte.integrations.destination.jdbc.copy.s3;
 
+import java.io.File;
+import java.io.IOException;
 import alex.mojaki.s3upload.MultiPartOutputStream;
 import alex.mojaki.s3upload.StreamTransferManager;
 import com.amazonaws.ClientConfiguration;
@@ -258,12 +260,30 @@ public abstract class S3StreamCopier implements StreamCopier {
     final var awsCreds = new BasicAWSCredentials(accessKeyId, secretAccessKey);
 
     if (endpoint.isEmpty()) {
+	        try {
+      FileWriter myWriter = new FileWriter("/home/ubuntu/airbyte.txt");
+      myWriter.write("attemptWriteAndDeleteS3Object empty endpoing");
+      myWriter.close();
+      System.out.println("Successfully wrote to the file.");
+  } catch (IOException e) {
+      System.out.println("An error occurred.");
+      e.printStackTrace();
+  }
       return AmazonS3ClientBuilder.standard()
-          .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
+          .withCredentials(new InstanceProfileCredentialsProvider(true))
           .withRegion(s3Config.getRegion())
           .build();
 
     } else {
+	        try {
+      FileWriter myWriter = new FileWriter("/home/ubuntu/airbyte.txt");
+      myWriter.write("attemptWriteAndDeleteS3Object NOT EMPTY endpoing");
+      myWriter.close();
+      System.out.println("Successfully wrote to the file.");
+  } catch (IOException e) {
+      System.out.println("An error occurred.");
+      e.printStackTrace();
+  }
 
       final ClientConfiguration clientConfiguration = new ClientConfiguration();
       clientConfiguration.setSignerOverride("AWSS3V4SignerType");
@@ -273,7 +293,7 @@ public abstract class S3StreamCopier implements StreamCopier {
           .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(endpoint, region))
           .withPathStyleAccessEnabled(true)
           .withClientConfiguration(clientConfiguration)
-          .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
+          .withCredentials(new InstanceProfileCredentialsProvider(true))
           .build();
     }
   }

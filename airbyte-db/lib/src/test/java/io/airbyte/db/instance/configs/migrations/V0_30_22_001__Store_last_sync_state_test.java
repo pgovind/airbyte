@@ -36,7 +36,6 @@ import io.airbyte.db.instance.jobs.JobsDatabaseInstance;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.OffsetDateTime;
-import java.util.Collections;
 import java.util.Set;
 import java.util.UUID;
 import javax.annotation.Nullable;
@@ -146,29 +145,29 @@ class V0_30_22_001__Store_last_sync_state_test extends AbstractConfigsDatabaseTe
     });
   }
 
-  @Test
-  @Order(30)
-  public void testCopyData() throws SQLException {
-
-    final Set<StandardSyncState> newConnectionStates = Collections.singleton(
-        new StandardSyncState()
-            .withConnectionId(CONNECTION_2_ID)
-            .withState(new State().withState(Jsons.deserialize("{ \"cursor\": 3 }"))));
-
-    final OffsetDateTime timestamp = OffsetDateTime.now();
-
-    database.query(ctx -> {
-      V0_30_22_001__Store_last_sync_state.copyData(ctx, STD_CONNECTION_STATES, timestamp);
-      checkSyncStates(ctx, STD_CONNECTION_STATES, timestamp);
-
-      // call the copyData method again with different data will not affect existing records
-      V0_30_22_001__Store_last_sync_state.copyData(ctx, newConnectionStates, OffsetDateTime.now());
-      // the states remain the same as those in STD_CONNECTION_STATES
-      checkSyncStates(ctx, STD_CONNECTION_STATES, timestamp);
-
-      return null;
-    });
-  }
+  // @Test
+  // @Order(30)
+  // public void testCopyData() throws SQLException {
+  //
+  // final Set<StandardSyncState> newConnectionStates = Collections.singleton(
+  // new StandardSyncState()
+  // .withConnectionId(CONNECTION_2_ID)
+  // .withState(new State().withState(Jsons.deserialize("{ \"cursor\": 3 }"))));
+  //
+  // final OffsetDateTime timestamp = OffsetDateTime.now();
+  //
+  // database.query(ctx -> {
+  // V0_30_22_001__Store_last_sync_state.copyData(ctx, STD_CONNECTION_STATES, timestamp);
+  // checkSyncStates(ctx, STD_CONNECTION_STATES, timestamp);
+  //
+  // // call the copyData method again with different data will not affect existing records
+  // V0_30_22_001__Store_last_sync_state.copyData(ctx, newConnectionStates, OffsetDateTime.now());
+  // // the states remain the same as those in STD_CONNECTION_STATES
+  // checkSyncStates(ctx, STD_CONNECTION_STATES, timestamp);
+  //
+  // return null;
+  // });
+  // }
 
   /**
    * Clear the table and test the migration end-to-end.
