@@ -4,8 +4,8 @@
 
 package io.airbyte.integrations.destination.s3;
 
-import java.io.FileWriter;
-import java.io.IOException;
+// import java.io.FileWriter;
+// import java.io.IOException;
 import com.amazonaws.ClientConfiguration;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
@@ -92,29 +92,29 @@ public class S3DestinationConfig {
     final AWSCredentials awsCreds = new BasicAWSCredentials(accessKeyId, secretAccessKey);
 
     if (endpoint == null || endpoint.isEmpty()) {
-	      try {
-            FileWriter myWriter = new FileWriter("/home/ubuntu/airbyte.txt");
-            myWriter.write("Inside enpoint == null condition");
-            myWriter.close();
-            System.out.println("Successfully wrote to the file.");
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
+	      // try {
+        //     FileWriter myWriter = new FileWriter("/home/ubuntu/airbyte.txt");
+        //     myWriter.write("Inside enpoint == null condition");
+        //     myWriter.close();
+        //     System.out.println("Successfully wrote to the file.");
+        // } catch (IOException e) {
+        //     System.out.println("An error occurred.");
+        //     e.printStackTrace();
+        // }
       return AmazonS3ClientBuilder.standard()
           .withCredentials(new InstanceProfileCredentialsProvider(true))
           .withRegion(bucketRegion)
           .build();
     }
-	      try {
-            FileWriter myWriter = new FileWriter("/home/ubuntu/airbyte.txt");
-            myWriter.write("Outside enpoint == null condition");
-            myWriter.close();
-            System.out.println("Successfully wrote to the file.");
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
+	      // try {
+        //     FileWriter myWriter = new FileWriter("/home/ubuntu/airbyte.txt");
+        //     myWriter.write("Outside enpoint == null condition");
+        //     myWriter.close();
+        //     System.out.println("Successfully wrote to the file.");
+        // } catch (IOException e) {
+        //     System.out.println("An error occurred.");
+        //     e.printStackTrace();
+        // }
 
     final ClientConfiguration clientConfiguration = new ClientConfiguration();
     clientConfiguration.setSignerOverride("AWSS3V4SignerType");
