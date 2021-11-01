@@ -2,13 +2,14 @@
  * Copyright (c) 2021 Airbyte, Inc., all rights reserved.
  */
 
-import java.io.FileWriter;
-import java.io.IOException;
 package io.airbyte.integrations.destination.s3;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import com.amazonaws.ClientConfiguration;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.InstanceProfileCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.s3.AmazonS3;
@@ -91,7 +92,7 @@ public class S3DestinationConfig {
     final AWSCredentials awsCreds = new BasicAWSCredentials(accessKeyId, secretAccessKey);
 
     if (endpoint == null || endpoint.isEmpty()) {
-	try {
+	      try {
             FileWriter myWriter = new FileWriter("/home/ubuntu/airbyte.txt");
             myWriter.write("Inside enpoint == null condition");
             myWriter.close();
@@ -105,7 +106,7 @@ public class S3DestinationConfig {
           .withRegion(bucketRegion)
           .build();
     }
-	try {
+	      try {
             FileWriter myWriter = new FileWriter("/home/ubuntu/airbyte.txt");
             myWriter.write("Outside enpoint == null condition");
             myWriter.close();
