@@ -261,15 +261,15 @@ public abstract class S3StreamCopier implements StreamCopier {
     final var awsCreds = new BasicAWSCredentials(accessKeyId, secretAccessKey);
 
     if (endpoint.isEmpty()) {
-	    try {
-          FileWriter myWriter = new FileWriter("/home/ubuntu/airbyte.txt");
-          myWriter.write("attemptWriteAndDeleteS3Object empty endpoing");
-          myWriter.close();
-          System.out.println("Successfully wrote to the file.");
-      } catch (IOException e) {
-          System.out.println("An error occurred.");
-          e.printStackTrace();
-      }
+	    // try {
+      //     FileWriter myWriter = new FileWriter("/home/ubuntu/airbyte.txt");
+      //     myWriter.write("attemptWriteAndDeleteS3Object empty endpoing");
+      //     myWriter.close();
+      //     System.out.println("Successfully wrote to the file.");
+      // } catch (IOException e) {
+      //     System.out.println("An error occurred.");
+      //     e.printStackTrace();
+      // }
 
       return AmazonS3ClientBuilder.standard()
           .withCredentials(new InstanceProfileCredentialsProvider(true))
@@ -277,15 +277,15 @@ public abstract class S3StreamCopier implements StreamCopier {
           .build();
 
     } else {
-	    try {
-          FileWriter myWriter = new FileWriter("/home/ubuntu/airbyte.txt");
-          myWriter.write("attemptWriteAndDeleteS3Object NOT EMPTY endpoing");
-          myWriter.close();
-          System.out.println("Successfully wrote to the file.");
-      } catch (IOException e) {
-          System.out.println("An error occurred.");
-          e.printStackTrace();
-      }
+	    // try {
+      //     FileWriter myWriter = new FileWriter("/home/ubuntu/airbyte.txt");
+      //     myWriter.write("attemptWriteAndDeleteS3Object NOT EMPTY endpoing");
+      //     myWriter.close();
+      //     System.out.println("Successfully wrote to the file.");
+      // } catch (IOException e) {
+      //     System.out.println("An error occurred.");
+      //     e.printStackTrace();
+      // }
 
       final ClientConfiguration clientConfiguration = new ClientConfiguration();
       clientConfiguration.setSignerOverride("AWSS3V4SignerType");
